@@ -10,11 +10,11 @@ router.get("/login", authenticateToken, function (req, res, next) {
 
 router.post("/login", validation(loginSchema), authLogin);
 
-router.get("/logout", function (req, res, nex) {
+router.get("/logout", function (req, res, next) {
 	res.json({ message: "Logout route" });
 });
 
-router.get("/protect", authenticateToken, (req, res) => {
+router.get("/protect", authenticateToken, (req, res, next) => {
 	if (!req.user) return res.sendStatus(403);
 	res.json({ user: req.user });
 	next();

@@ -64,11 +64,59 @@ const main = async () => {
 			data: {
 				title: "In Progress LOW Task",
 				description: "Example",
-				dueDate: new Date("2024-09-09"),
+				dueDate: new Date("2024-04-23"),
 				priority: "LOW",
 				status: "IN_PROGRESS",
 				creator: {
+					connect: { id: user2.id },
+				},
+				responsible: {
+					connect: { id: user2.id },
+				},
+			},
+		});
+
+		await prisma.task.create({
+			data: {
+				title: "DONE LOW Task",
+				description: "Example",
+				dueDate: new Date("2024-04-24"),
+				priority: "LOW",
+				status: "DONE",
+				creator: {
 					connect: { id: director.id },
+				},
+				responsible: {
+					connect: { id: user2.id },
+				},
+			},
+		});
+
+		await prisma.task.create({
+			data: {
+				title: "DONE HIGH Task",
+				description: "Example",
+				dueDate: new Date("2024-09-09"),
+				priority: "LOW",
+				status: "DONE",
+				creator: {
+					connect: { id: director.id },
+				},
+				responsible: {
+					connect: { id: user2.id },
+				},
+			},
+		});
+
+		await prisma.task.create({
+			data: {
+				title: "Expired Task",
+				description: "Example",
+				dueDate: new Date("2024-04-20"),
+				priority: "LOW",
+				status: "IN_PROGRESS",
+				creator: {
+					connect: { id: user2.id },
 				},
 				responsible: {
 					connect: { id: user2.id },
