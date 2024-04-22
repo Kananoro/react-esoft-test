@@ -1,6 +1,6 @@
 import { prisma } from "../config/prisma.js";
 
-const subortinateByDirectorId = async (directorId) => {
+export const subortinateByDirectorId = async (directorId) => {
 	const directorExist = await prisma.user.findUnique({
 		where: {
 			id: directorId,
@@ -28,7 +28,10 @@ const subortinateByDirectorId = async (directorId) => {
 	return subordinates;
 };
 
-const isResponsibleForSubordinate = async (directorId, subordinateId) => {
+export const isResponsibleForSubordinate = async (
+	directorId,
+	subordinateId,
+) => {
 	const subordinate = await prisma.user.findUnique({
 		where: {
 			id: subordinateId,
@@ -36,7 +39,7 @@ const isResponsibleForSubordinate = async (directorId, subordinateId) => {
 		},
 	});
 
-	if (!subotdinate) {
+	if (!subordinate) {
 		return false;
 	}
 

@@ -1,10 +1,22 @@
-import axios from "axios";
+import { instance } from "./api.js";
 
-export const instance = axios.create({
-	baseURL: "http://localhost:3000/auth",
-});
+const loginUser = (login, password) => {
+	return instance.post("/auth/login", {
+		login: login,
+		password: password,
+	});
+};
 
-instance.interceptors.request.use((config) => {
-	config.headers.authorization = `Bearer ${localStorage.token}`;
-	return config;
-});
+const getAllTasks = () => {
+	return instance.get("/task");
+};
+
+const useJWT = () => {
+	return instance.get("/auth/protect");
+};
+
+export const apiGet = {
+	useJWT,
+	loginUser,
+	getAllTasks,
+};

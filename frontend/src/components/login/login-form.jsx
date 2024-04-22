@@ -1,41 +1,73 @@
-import React from "react";
-import { authApi } from "../../api-auth.js";
-import { instance } from "../../api-get.js";
+import React, { useState } from "react";
+import { apiGet } from "../../api-get.js";
+import { useNavigate } from "react-router-dom";
+import ErrorCard from "../error.jsx";
+import { useUser } from "../../usercontext.jsx";
 
 const LoginForm = () => {
+	const { getUserData } = useUser();
+	const [login, setLogin] = useState("");
+	const [password, setPassword] = useState("");
+	const [errorMessage, setErrorMessage] = useState();
+	const navigate = useNavigate();
 	const handleLoginClick = () => {
-		try {
-			authApi.useJWT().then((res) => {
-				console.log("Успешный JWT auth", res.data);
+		setErrorMessage(null);
+		apiGet
+			.loginUser(login, password)
+			.then((res) => {
+				localStorage.setItem("token", res.data.token);
+				getUserData();
+				navigate("/task");
+			})
+			.catch((error) => {
+				const apiError = error.response.status;
+				if (apiError === 500) {
+					setErrorMessage(
+						error.response.data.message.map((item) => String(item)).join("\n"),
+					);
+				}
+				if (apiError === 401) {
+					setErrorMessage("Password incorrect!");
+				}
+				if (apiError === 404) {
+					setErrorMessage("Login not found!");
+				}
 			});
-		} catch {
-			authApi
-				.loginUser("kananoro", "password1")
-				.then((res) => {
-					console.log("Успешный ответ:", res.data);
-					localStorage.setItem("token", res.data.token);
-				})
-				.catch((error) => {
-					// Обработка ошибки
-					console.error("Ошибка при отправке запроса: ", error);
-				});
-		}
 	};
 
 	return (
-		<div className="w-[400px] h-[400px] rounded-2xl bg-slate-500 flex flex-col justify-center items-center">
-			<p>Login Form</p>
-			<button onClick={handleLoginClick}>Login</button>
-			<button
-				className="hover:bg-violet-500 bg-black"
-				onClick={() => {
-					() => {
-						console.log("Pisun");
-					};
-				}}>
-				Login
-			</button>
-		</div>
+		<>
+			<div className="w-[400px] h-[400px] rounded-2xl bg-gray-300 flex flex-col gap-3 justify-around items-center relative">
+				<p className="text-3xl">TODO List</p>
+
+				<div className="flex flex-col gap-1">
+					<label htmlFor="login">Login</label>
+					<input
+						className="border-y focus:outline-none rounded-md px-4"
+						type="text"
+						id="login"
+						placeholder="john.doe"
+						value={login}
+						onChange={(event) => {
+							setLogin(event.target.value.toLowerCase());
+						}}
+					/>
+					<label htmlFor="password">Password</label>
+					<input
+						className="border-y focus:outline-none rounded-md px-4"
+						type="password"
+						id="password"
+						placeholder="******"
+						value={password}
+						onChange={(event) => {
+							setPassword(event.target.value);
+						}}
+					/>
+				</div>
+				{errorMessage && <ErrorCard error={errorMessage} />}
+				<button onClick={handleLoginClick}>Login</button>
+			</div>
+		</>
 	);
 };
 

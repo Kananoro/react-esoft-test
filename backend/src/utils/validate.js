@@ -6,12 +6,10 @@ export const validation = (schema) => async (req, res, next) => {
 				query: req.query,
 				params: req.params,
 			},
-			{
-				aboutEarly: false,
-			},
+			{ abortEarly: false },
 		);
-		next();
+		return next();
 	} catch (error) {
-		return res.status(500).json({ type: error.name, message: error.errors });
+		return res.status(500).json({ message: error.errors });
 	}
 };

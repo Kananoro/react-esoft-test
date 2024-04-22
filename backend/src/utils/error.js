@@ -14,6 +14,18 @@ class ApiError extends Error {
 			Error.captureStackTrace(this, this.constructor);
 		}
 	}
+
+	toJSON() {
+		return {
+			error: {
+				name: this.name,
+				message: this.message,
+				statusCode: this.statusCode,
+				isOperational: this.isOperational,
+				stack: this.stack, // Можно добавить stacktrace, если нужно
+			},
+		};
+	}
 }
 
 export default ApiError;

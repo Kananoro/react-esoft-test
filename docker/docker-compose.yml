@@ -13,5 +13,23 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
+  # frontend:
+  #   build:
+  #     context: ../frontend
+  #     dockerfile: ../docker/dockerfile.frontend
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ../frontend:/usr/app
+
+  # backend:
+  #   build:
+  #     context: ../backend
+  #     dockerfile: ../docker/dockerfile.backend
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ../backend:/usr/app
+
 volumes:
   db:

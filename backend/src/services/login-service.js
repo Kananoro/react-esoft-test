@@ -5,7 +5,7 @@ import httpStatus from "http-status";
 export const loginUserWithLoginAndPassoword = async (login, password) => {
 	const user = await findUserByLogin(login);
 	if (!user) {
-		throw new ApiError(httpStatus.NOT_FOUND, `No user with login: ${login}`);
+		throw new ApiError(httpStatus.NOT_FOUND, `No user with this login`);
 	}
 
 	const isPasswordMatch = await comparePassword(password, user.password);

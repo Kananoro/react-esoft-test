@@ -9,6 +9,7 @@ const generateAuthToken = async (
 	const token = jwt.sign(
 		{
 			id: user.id,
+			login: user.login,
 			role: user.role,
 		},
 		secret,

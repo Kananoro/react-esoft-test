@@ -6,3 +6,10 @@ export const loginSchema = yup.object({
 		password: yup.string().required(),
 	}),
 });
+
+export const taskSchema = yup.object({
+	body: yup.object({
+		login: yup.string().required(),
+		dueDate: yup.string().required(),
+	}),
+});

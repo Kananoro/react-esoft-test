@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -14,8 +15,8 @@ model Task {
   dueDate         DateTime?
   createAt        DateTime @default(now())
   updatedAt       DateTime? @updatedAt
-  prioriy         Priority
-  status          Status
+  priority        Priority
+  status          Status @default(TODO)
   creator         User @relation("Creator", fields: [creatorId], references: [id])
   creatorId       Int
   responsible     User @relation("Responsible", fields: [responsibleId], references: [id])

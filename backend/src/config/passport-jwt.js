@@ -4,13 +4,12 @@ import { prisma } from "./prisma.js";
 
 export const jwtOptions = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: "111222333",
+	secretOrKey: config.jwt.secret,
 };
 
 export const jwtStrategy = new JwtStrategy(
 	jwtOptions,
 	async (jwtPayload, done) => {
-		console.log("apsdasdasd");
 		try {
 			const user = await prisma.user.findUnique({
 				where: {

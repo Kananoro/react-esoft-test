@@ -49,7 +49,7 @@ const main = async () => {
 				title: "TODO HIGH Task",
 				description: "Example",
 				dueDate: new Date("2024-09-09"),
-				prioriy: "HIGH",
+				priority: "HIGH",
 				status: "TODO",
 				creator: {
 					connect: { id: director.id },
@@ -65,7 +65,7 @@ const main = async () => {
 				title: "In Progress LOW Task",
 				description: "Example",
 				dueDate: new Date("2024-09-09"),
-				prioriy: "LOW",
+				priority: "LOW",
 				status: "IN_PROGRESS",
 				creator: {
 					connect: { id: director.id },
