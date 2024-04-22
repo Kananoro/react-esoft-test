@@ -7,11 +7,11 @@
 - Docker
 - PostgreSQL
 - ExpressJS
-- Prisma
 - Express.js
 
 ### on backend
 
+- prisma
 - bcrypt
 - yup
 - passport
@@ -20,6 +20,7 @@
 ### on frontend
 
 - axios
+- tailwindcss
 
 ## Getting Started
 
