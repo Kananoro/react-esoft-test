@@ -7,7 +7,6 @@
 - Docker
 - PostgreSQL
 - ExpressJS
-- Express.js
 
 ### on backend
 
